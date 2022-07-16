@@ -5,7 +5,6 @@ from queue import Empty
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
-from pyparsing import empty
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -106,6 +105,11 @@ async def kick(ctx, member : discord.Member, *, reason = None):
     await member.kick(reason = reason)
 
 @client.command()
+@commands.has_permissions(mute_members = True)
+async def mute(ctx, member : discord.Member, *, reason = None)
+    await member.mute(reason = reason)
+
+@client.command()
 async def helpme(ctx):
     name = str("Help Dialog")
     description = str("Do you need help ? Then you're at the right place !")
@@ -151,7 +155,7 @@ async def on_message_delete(message):
 
 @client.event()
 async def on_channel_create(channel):
-    channel=client.get_channel(559373100978929684)
+    channel = client.get_channel(559373100978929684)
     created = discord.Embed(
         description=f"Channel created ! {channel.mention}", color=0x256340
     ).set_author(name=message.author, url=empty, icon_url=message.author.avatar_url)
@@ -162,7 +166,7 @@ async def on_channel_create(channel):
 
 @client.event()
 async def on_role_create(role):
-    
+    channel = client.get_channel(559373100978929684)
     created = discord.Embed(
         description=f"Role created : {role.mention}", color = 0x422100
     ).set_author(name=message.author, url=empty, icon_url=message.author.avatar_url)
@@ -170,6 +174,28 @@ async def on_role_create(role):
     created.add_field(name="Role", value=role.name)
     created.timestamp = role.created_at
     await channel.send(embed=created)
+
+@client.event()
+async def on_role_delete(role):
+    channel = client.get_channel(559373100978929684)
+    deleted = discord.Embed(
+        description=f"Role Deleted : {role.mention}", color = 0x769000
+    ).set_author(name=message.author, url = empty, icon_url=message.author.avatar_url)
+
+    deleted.add_field(name="Role", value=role.name)
+    deleted.timestamp = message.created_at
+    await channel.send(embed=deleted)
+
+@client.event()
+async def on_member_mute(mute):
+    channel = client.get_channel(559373100978929684)
+    muted = discord.Embed(
+        description=f"Member muted : {member.name}", color = 0x649500
+    ).set_author(name=message.author, url = empty, icon_url=message.author.avatar_url)
+
+    muted.add_field(name="Muted", value = member.name)
+    muted.timestamp = message.created_at
+    await channel.send(embed=muted)
 
 @client.event
 async def on_ready():
