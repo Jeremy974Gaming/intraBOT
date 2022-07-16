@@ -3,7 +3,7 @@ import os
 from queue import Empty
 
 import discord
-from dotenv import load_dotenv
+from dotenv import load_dotenv           # Dev note : does not work on mac.
 from discord.ext import commands
 
 load_dotenv()
@@ -186,8 +186,9 @@ async def on_role_delete(role):
     deleted.timestamp = message.created_at
     await channel.send(embed=deleted)
 
+# Dev Note : Fixed this command.
 @client.event()
-async def on_member_mute(mute):
+async def on_member_mute(muted):
     channel = client.get_channel(559373100978929684)
     muted = discord.Embed(
         description=f"Member muted : {member.name}", color = 0x649500
@@ -197,10 +198,12 @@ async def on_member_mute(mute):
     muted.timestamp = message.created_at
     await channel.send(embed=muted)
 
+# Dev Note : Just print something to the console to check if the bot connected successfully.
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord !')
 
+# Dev Note : Send a DM to the newly joined member.
 @client.event
 async def on_member_join(member, guild):
     await guild.name(guild)
