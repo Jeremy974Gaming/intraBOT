@@ -69,6 +69,16 @@ async def ban(ctx, member : discord.Member, *, reason = None):
     await member.ban(reason = reason)
 
 @client.command()
+@commands.has_permissions(kick_members = True)
+async def kick(ctx, member : discord.Member, *, reason = None):
+    await member.kick(reason = reason)
+
+@client.command()
+@commands.has_permissions(mute_members = True)
+async def mute(ctx, member : discord.Member, *, reason = None)
+    await member.mute(reason = reason)
+
+@client.command()
 async def userinfo(ctx, *, member: discord.Member = None):
     if member is None:
         member = ctx.message.author
