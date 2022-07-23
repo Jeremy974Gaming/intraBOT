@@ -1,4 +1,4 @@
-# intraBOT
+# intraBOT - Your link to the NYLX Network !
 Intranet bot of the NYLX Network
 
 This project consists of developing a bot linking the intranet with Discord and helping get more out of the servers across the NYLX Network.
