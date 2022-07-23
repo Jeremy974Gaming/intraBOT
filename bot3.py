@@ -75,7 +75,7 @@ async def kick(ctx, member : discord.Member, *, reason = None):
 
 @client.command()
 @commands.has_permissions(mute_members = True)
-async def mute(ctx, member : discord.Member, *, reason = None)
+async def mute(ctx, member : discord.Member, *, reason = None):
     await member.mute(reason = reason)
 
 @client.command()
@@ -185,6 +185,17 @@ async def on_role_create(role):
     created.add_field(name="Role", value=role.name)
     created.timestamp = role.created_at
     await channel.send(embed=created)
+
+@client.event()
+async def on_role_delete(role):
+    channel = client.get_channel(559373100978929684)
+    deleted = discord.Embed(
+        description=f"Role Deleted : {role.mention}", color = 0x769000
+    ).set_author(name=role.author, url = empty, icon_url=role.author.avatar_url)
+
+    deleted.add_field(name="Role", value=role.name)
+    deleted.timestamp = role.deleted_at
+    await channel.send(embed=deleted)
 
 @client.command()
 async def play(ctx):
