@@ -12,6 +12,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 client = commands.Bot(command_prefix="$", activity = discord.Game(name="Better than the Books !"))
 #client = discord.Client()
 
+# DEV NOTE : Commands are below.
 @client.command()
 async def examshell(ctx):
     await ctx.send(
@@ -77,6 +78,16 @@ async def kick(ctx, member : discord.Member, *, reason = None):
 @commands.has_permissions(mute_members = True)
 async def mute(ctx, member : discord.Member, *, reason = None):
     await member.mute(reason = reason)
+
+@client.command()
+@commands.has_permissions(deafen_members = True)
+async def deafen(ctx, member : discord.Member, *, reason = None):
+    await member.deafen(reason = reason)
+
+@client.command()
+@commands.has_permissions(create_events = True)
+async def nevent(ctx, event : discord.Event, *, location = None, topic = None, date = None, time = None, description = None):
+    await event.create(location = location, topic = topic, date = date, time = time, decription = description)
 
 @client.command()
 async def userinfo(ctx, *, member: discord.Member = None):
@@ -153,6 +164,8 @@ async def repeat(ctx, *args):
     for arg in args:
         await ctx.send(arg)
 
+# DEV NOTE : Everything there is related to event listeners.
+
 @client.event
 async def on_message_delete(message):
     channel = client.get_channel(559373100978929684)
@@ -196,6 +209,8 @@ async def on_role_delete(role):
     deleted.add_field(name="Role", value=role.name)
     deleted.timestamp = role.deleted_at
     await channel.send(embed=deleted)
+
+# DEV NOTE : These are media playback commands.
 
 @client.command()
 async def play(ctx):
@@ -248,6 +263,8 @@ async def stop(ctx):
     voice_client = await voice_channel.disconnect()
 
     voice_client.stop(discord.FFmpegPCMAudio('song.mp3'))
+
+# DEV NOTE : Startup event listeners and DM Welcoming.
 
 @client.event
 async def on_ready():
