@@ -199,7 +199,7 @@ async def on_role_create(role):
     created.timestamp = role.created_at
     await channel.send(embed=created)
 
-@client.event()
+@client.event
 async def on_role_delete(role):
     channel = client.get_channel(559373100978929684)
     deleted = discord.Embed(
