@@ -219,7 +219,7 @@ async def play(ctx):
     voice_client = discord.utils.get(client.voice_clients, guild=ctx.guild)
 
     if voice_client:
-        await ctx.send('Already connected to channel!')
+        await ctx.send('Connected to voice and playing music !')
         return
     
     voice_channel = ctx.author.voice.channel
