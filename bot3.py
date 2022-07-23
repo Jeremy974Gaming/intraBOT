@@ -174,7 +174,7 @@ async def on_message_delete(message):
     ).set_author(name=message.author.name, url=empty, icon_url=message.author.avatar_url)
 
     deleted.add_field(name="Message", value=message.content)
-    deleted.timestamp = message.created_at
+    deleted.timestamp = message.deleted_at
     await channel.send(embed=deleted)
 
 @client.event
