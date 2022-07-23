@@ -139,6 +139,7 @@ async def helpme(ctx):
     plamus = str("Plays music."),
     skimus = str("Skips music."),
     paumus = str("Pauses music."),
+    stomus = str("Pauses music."),
 
     embed = discord.Embed(
         title = name + " - Get Help here !",
@@ -153,10 +154,11 @@ async def helpme(ctx):
     embed.add_field(name="mute", value=muteuser, inline=True)
     embed.add_field(name="userinfo", value=userinfo, inline=True)
     embed.add_field(name="ping", value=pinginf, inline=True)
-    embed.add_field(name="Play", value=plamus, inline=True)
-    embed.add_field(name="Skip", value=skimus, inline=True)
-    embed.add_field(name="Pause", value=paumus, inline=True)
-    
+    embed.add_field(name="play", value=plamus, inline=True)
+    embed.add_field(name="skip", value=skimus, inline=True)
+    embed.add_field(name="pause", value=paumus, inline=True)
+    embed.add_field(name="stop", value=stomus, inline = True)
+
     await ctx.send(embed=embed)
 
 @client.command()
