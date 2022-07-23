@@ -1,5 +1,7 @@
 # bot.py
 import os
+from webbrowser import get
+from wsgiref.util import application_uri
 
 import discord
 from dotenv import load_dotenv
@@ -86,8 +88,13 @@ async def deafen(ctx, member : discord.Member, *, reason = None):
 
 @client.command()
 @commands.has_permissions(create_events = True)
-async def nevent(ctx, event : discord.Event, *, location = None, topic = None, date = None, time = None, description = None):
+async def newevent(ctx, event : discord.Event, *, location = None, topic = None, date = None, time = None, description = None):
     await event.create(location = location, topic = topic, date = date, time = time, decription = description)
+
+@client.command()
+@commands.has_permissions(delete_events = True)
+async def delevent(ctx, event : discord.Event, topic = None):
+    await event.delete(topic = topic)
 
 @client.command()
 async def userinfo(ctx, *, member: discord.Member = None):
@@ -124,6 +131,17 @@ async def ping(ctx):
 @commands.has_permissions(kick_members = True)
 async def kick(ctx, member : discord.Member, *, reason = None):
     await member.kick(reason = reason)
+
+# DEV NOTE : This is a work in progress command, do not uncomment.
+
+# @client.command()
+# async def appstatus(ctx, member : discord.Member, *, status):
+#    await application_uri(ctx, member, status)
+
+@client.command()
+@commands.has_permissions(move_members = True)
+async def move(ctx, member : discord.Member, *, channel = None):
+    await (member.move(channel = channel))
 
 @client.command()
 async def helpme(ctx):
